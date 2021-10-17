@@ -1,0 +1,33 @@
+version: '3'
+services:
+  smtp:
+    build: .
+    image: sender_smtp_daemon
+    container_name: sender_smtp_daemon
+    restart: always
+    ports:
+     - "25:25"
+    environment:
+     # # MUST start with : e.g RELAY_NETWORKS=:192.168.0.0/24:10.0.0.0/16
+     # # if acting as a relay this or RELAY_DOMAINS must be filled out or incoming mail will be rejected
+    #  - RELAY_NETWORKS= :0.0.0.0/24
+     # # what domains should be accepted to forward to lower distance MX server.
+     # - RELAY_DOMAINS= <domain1> : <domain2> : <domain3>
+     # # To act as a Gmail relay
+    #  - GMAIL_USER=
+    #  - GMAIL_PASSWORD=
+     # # For use with Amazon SES relay
+     # - SES_USER=
+     # - SES_PASSWORD=
+     # - SES_REGION=
+     # # if provided will enable TLS support
+      - KEY_PATH=/bin/exim.key
+      - CERTIFICATE_PATH=/bin/exim.crt
+      - USERNAME=user
+      - PASSWORD=password
+      # - SMARTHOST_ADDRESS=127.0.0.1
+      # - SMARTHOST_PORT=25
+      # - SMARTHOST_USER=myuser
+      # - SMARTHOST_PASSWORD=secret
+      # - SMARTHOST_ALIASES=*
+     
